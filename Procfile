@@ -1,1 +1,1 @@
-web: twistd -y service.tac
+web: twistd -noy service.tac

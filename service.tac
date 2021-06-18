@@ -1,5 +1,10 @@
 import os
-import app
+try:
+    import app
+except ImportError:
+    import sys
+    sys.path.append('.')
+    import app
 
 from twisted.application import service, internet
 from twisted.web import server
@@ -12,10 +17,9 @@ def getWebService():
     underneath the current working directory.
     """
     # create a resource to serve static files
-    r = app.BlenderXMLRPC()
+    r = app.XMLRPC()
     xmlrpcServer = server.Site(r)
-    print(os.environ.get("PORT"))
-    return internet.TCPServer(int(os.environ.get("PORT")), xmlrpcServer)
+    return internet.TCPServer(int(os.environ.get("PORT", 7080)), xmlrpcServer)
 
 # this is the core part of any tac file, the creation of the root-level
 # application object

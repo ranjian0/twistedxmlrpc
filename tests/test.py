@@ -9,7 +9,7 @@ NUM_CLIENTS = 1
 if DEBUG:
     URL = "http://localhost:7080/"
 else:
-    URL = subprocess.check_output("heroku info -s | grep web_url | cut -d= -f2", shell=True).decode()
+    URL = subprocess.check_output("heroku info -s | grep web_url | cut -d= -f2", shell=True).decode().strip()
 
 def request():
   with xmlrpc.client.ServerProxy(URL, allow_none=True, use_builtin_types=True) as proxy:
@@ -22,8 +22,8 @@ def request():
             if k != "bin":
                 print(k, v)
 
-        print(lst)
-        print(data['bin'])
+        # print(lst)
+        # print(data['bin'])
 
 if __name__ == "__main__":
   threads = [threading.Thread(target=request) for _ in range(NUM_CLIENTS)]

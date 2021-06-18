@@ -14,7 +14,8 @@ def getWebService():
     # create a resource to serve static files
     r = app.BlenderXMLRPC()
     xmlrpcServer = server.Site(r)
-    return internet.TCPServer(os.environ.get("PORT"), xmlrpcServer)
+    print(os.environ.get("PORT"))
+    return internet.TCPServer(int(os.environ.get("PORT")), xmlrpcServer)
 
 # this is the core part of any tac file, the creation of the root-level
 # application object
